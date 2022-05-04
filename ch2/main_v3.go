@@ -4,11 +4,11 @@ func main() {
 	calc_damage(1, 2, 3, 4)
 }
 
-// 変数名を全て意味のある単語にすることで、コードを見ただけでロジックの意味がわかるように変更
+// 再代入ではなく、目的ごとに意味のある変数を用意
 func calc_damage(playerArmPower, playerWeaponPower, enemyBodyDefence, enemyArmorDefence int) {
-	var damageAmount int = 0
-	damageAmount = playerArmPower + playerWeaponPower
-	damageAmount = damageAmount - ((enemyBodyDefence + enemyArmorDefence) / 2)
+	var totalPlayerAttackPower int = playerArmPower + playerWeaponPower
+	var totalEnemyDefence int = enemyBodyDefence + enemyArmorDefence
+	var damageAmount = totalPlayerAttackPower - (totalEnemyDefence / 2)
 	if damageAmount < 0 {
 		damageAmount = 0
 	}

@@ -3,7 +3,12 @@ package main
 import "fmt"
 
 func main() {
-	calc_damage(5, 2, 3, 4)
+	h := &HitPoint{100}
+	fmt.Println("ダメージ計算前のヒットポイント: ", h.value)
+
+	damage_amount := calc_damage(5, 2, 3, 4)
+	h.damage(damage_amount)
+	fmt.Println("ダメージ計算後のヒットポイント: ", h.value)
 }
 
 type HitPoint struct {
@@ -11,8 +16,8 @@ type HitPoint struct {
 }
 
 func (h *HitPoint) damage(damageAmount int) {
-	damaged = h.value - damageAmount
-
+	damaged := h.value - damageAmount
+	h.value = damaged
 }
 
 func sumUpPlayerAttackPower(playerArmPower int, playerWeaponPower int) int {
@@ -34,10 +39,10 @@ func estimateDamage(totalPlayerAttackPower int, totalEnemyDefence int) int {
 }
 
 // ベタ書きせず、意味のあるまとまりでメソッド化
-func calc_damage(playerArmPower, playerWeaponPower, enemyBodyDefence, enemyArmorDefence int) {
+func calc_damage(playerArmPower, playerWeaponPower, enemyBodyDefence, enemyArmorDefence int) int {
 	var totalPlayerAttackPower int = sumUpPlayerAttackPower(playerArmPower, playerWeaponPower)
 	var totalEnemyDefence int = sumUpEnemyDefence(enemyBodyDefence, enemyArmorDefence)
 	var damageAmount int = estimateDamage(totalPlayerAttackPower, totalEnemyDefence)
 
-	fmt.Println(damageAmount)
+	return damageAmount
 }
